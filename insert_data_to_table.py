@@ -33,8 +33,14 @@ def insert_data(host, port, username, password, database):
         print(item)
         cursor.execute("SELECT ID FROM item WHERE ITEM_NAME = %(item_name)s ",
                                  {"item_name": item["ITEM_NAME"]})
-        print(cursor.statement)
+        print(cursor.statement) # .statement return query
         item_id = int(cursor.fetchone()[0])
+        '''
+        The fetchall() method retrieves all the rows in the result set of a query and returns them as list of tuples. 
+        (If we execute this after retrieving few rows it returns the remaining ones).
+        The fetchone() method fetches the next row in the result of a query and returns it as a tuple.
+        The fetchmany() method is similar to the fetchone() but, it retrieves the next set of rows in the result set of a query, instead of a single row.
+        '''
         print(item_id)
         cursor.execute("SELECT ID FROM shop WHERE NAME = %(shop_name)s AND ADDRESS = %(shop_address)s",
                                  {"shop_name": shop["NAME"], "shop_address": shop["ADDRESS"]})
@@ -46,6 +52,10 @@ def insert_data(host, port, username, password, database):
         items_data_rows.append((shop_id, item_id))
 
     cursor.executemany("INSERT INTO item_shop (SHOP_ID, ITEM_ID) VALUES (%s, %s)", items_data_rows)
+    '''
+    .executemany - метод який вставляє багато стрічок
+    (%s, %s) -> приклад шаблону відповідно якого метод буде вставляти в запит колекцію колекцій
+    '''
     print(cursor.statement)
     db_connector.commit()
     db_connector.close()

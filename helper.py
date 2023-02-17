@@ -16,4 +16,3 @@ index_col = None - параметр який визначає що жодна к
 def form_insert_from_dict_tuple(table_name, dict_tuple: [dict])->str:
     return f"INSERT INTO {table_name}({', '.join(dict_tuple[0].keys())}) VALUES {', '.join([str(tuple(i.values())) for i in dict_tuple])}"
 
-read_csv(shops.csv)
