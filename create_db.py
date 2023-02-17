@@ -17,4 +17,4 @@ def create_database(host, port, username, password, database):
 
 if __name__ == "__main__":
     create_database()
-#run script via "python drop_db.py --username root --password koba --database Local_some"
+#run script via terminal "python drop_db.py --username root --password koba --database Local_some"

@@ -1,0 +1,88 @@
+create database if not exists sfra_auth_api_atributes_db;
+
+USE sfra_auth_api_atributes_db;
+CREATE table IF NOT EXISTS shops (
+ID INT PRIMARY KEY NOT NULL auto_increment,
+NAME varchar(200) NOT NULL,
+ADDRESS varchar(250) NOT NULL
+);
+
+drop table shops;
+
+USE sfra_auth_api_atributes_db;
+create table if not exists sh(
+ID int primary key not null auto_increment,
+ks varchar (100) not null,
+se varchar (200) not null
+);
+
+create database if not exists test_shop;
+USE test_shop;
+create table if not exists test_shops(
+ID int primary key not null auto_increment,
+SHOP_NAME varchar (100) not null,
+SHOP_ADDRESS varchar (200) not null
+);
+
+INSERT INTO test_shops (SHOP_NAME, SHOP_ADDRESS)
+values
+('atb_1' , 'ce 1 address'),
+('atb_2', 'ce 2 address'),
+('atb_3', 'ce 3 address'),
+('atb_4', 'ce 4 address');
+
+SELECT * FROM test_items_foren_key;
+
+SELECT * FROM test_shops
+where id=3;
+
+DELETE FROM test_shops where id=3;
+DELETE FROM test_shops where id>1;
+
+TRUNCATE table test_shops;
+
+SELECT * FROM test_shops where id>1 and id<6;
+
+SELECT ID, SHOP_NAME FROM test_shops;
+
+USE test_shop;
+create table if not exists test_items_sec(
+ID int primary key not null auto_increment,
+ITEM_NAME varchar (100) not null,
+ITEM_PRICE float not null
+);
+
+TRUNCATE table test_items_foren_key;
+DELETE test_items FROM test_shoptest_items;
+
+create table if not exists test_items_foren_key(
+ID int primary key not null auto_increment,
+ITEM_NAME varchar (100) not null,
+ITEM_PRICE float not null,
+SHOP_ID int not null,
+foreign key (SHOP_ID) REFERENCES test_shops(ID)
+);
+
+TRUNCATE table test_items_foren_key;
+
+USE test_items_foren_key;
+INSERT INTO test_items_foren_key (ITEM_NAME, ITEM_PRICE, SHOP_ID)
+VALUES
+('cukor', 15.00, (SELECT ID FROM test_shops WHERE SHOP_NAME='atb_2')),
+('kurka', 30.00, (SELECT ID FROM test_shops WHERE SHOP_ADDRESS='ce 2 address')),
+('pizza', 150.00, (SELECT ID FROM test_shops WHERE SHOP_NAME='atb_3_1'));
+
+
+SELECT * FROM test_items_foren_key;
+SELECT * FROM test_shops;
+
+SELECT s.SHOP_NAME as SHOP_NAME, i.ITEM_NAME as ITEM_NAME
+FROM test_shops s JOIN  test_items_foren_key i ON s.ID=i.SHOP_ID;
+
+INSERT INTO test_shops (SHOP_NAME, SHOP_ADDRESS) VALUES
+('ATB', 'saksaganskoogo street');
+
+ALTER TABLE test_shops ADD COMMENTS varchar(500);
+ALTER TABLE test_shops MODIFY COMMENTS varchar(700);
+
+DESC test_shops;

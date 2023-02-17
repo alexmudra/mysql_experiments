@@ -45,3 +45,5 @@ def create_table(host, port, username, password, database):
 
 if __name__ == "__main__":
     create_table()
+
+#запуск команди в терміналі python create_table_in_db.py --username root --password koba --database Local_koba
